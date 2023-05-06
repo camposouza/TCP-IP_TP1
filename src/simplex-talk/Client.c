@@ -2,7 +2,6 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
-#include <netdb.h>
 
 #define SERVER_PORT 54321
 #define MAX_LINE 256
@@ -19,7 +18,7 @@ int main (int argc, char* argv[]) {
     if (argc == 2) {
         host = argv[1];
     } else {
-        fprintf(stderr, "usage: simple-talk host \n");
+        fprintf(stderr, "Passe o endereço IPv4 do servidor em dotted notation\n");
         exit(1);
     }
 
@@ -30,7 +29,7 @@ int main (int argc, char* argv[]) {
         exit(1);
     }
 
-    // Modifique para ler o endereço IP em dotted notation e converter para binário.
+    // Le o endereço IP fornecido em argc em dotted notation e converter para binario.
     bzero((char*)&sin, sizeof(sin));
     sin.sin_family = AF_INET;
     if (inet_pton(AF_INET, host, &(sin.sin_addr)) <= 0) {
