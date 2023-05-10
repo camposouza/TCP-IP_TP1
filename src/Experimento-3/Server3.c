@@ -32,11 +32,9 @@ int main() {
     }
 
     // aguarda conexao, recebe o texto. Imprime e reenvia o texto ao cliente
-    while(1) {
-        while (buf_len = recv(new_s, buf, sizeof(buf), 0)) {
+        while (buf_len = recv(s, buf, sizeof(buf), 0)) {
             fputs(buf, stdout);
-            send(new_s, buf, strlen(buf), 0);
+            send(s, buf, strlen(buf), 0);
         }
-        close(new_s);
-    }
+        close(s);
 }
