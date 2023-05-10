@@ -53,6 +53,18 @@ int main (int argc, char* argv[]) {
     while (fgets(buf, sizeof(buf), stdin)) {
         buf[MAX_LINE-1] = '\0';
         len = strlen(buf) + 1;
-        send(s, buf, len, 0);
+
+        // envia linhas de texto
+        if (send(s, buf, len, 0) < 0) {
+            perror("simplex-talk: send");
+            break;
+        }
+
+        // recebe linhas de texto
+        if (recv(s, buf, len, 0) < 0) {
+            perror("simplex-talk: recv");
+            break;
+        }
+        printf("%s", buf);
     }
 }

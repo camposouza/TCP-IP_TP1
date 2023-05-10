@@ -32,7 +32,7 @@ int main() {
     }
     listen(s, MAX_PENDING);
 
-    // aguarda conexao, recebe e imprime texto
+    // aguarda conexao, recebe o texto. Imprime e reenvia o texto ao cliente
     while(1) {
         if ((new_s = accept(s, (struct sockaddr *)&sin, &addr_len)) < 0) {
             perror("simplex-talk: accept");
@@ -40,6 +40,7 @@ int main() {
         }
         while (buf_len = recv(new_s, buf, sizeof(buf), 0)) {
             fputs(buf, stdout);
+            send(new_s, buf, strlen(buf), 0);
         }
         close(new_s);
     }
